@@ -1,11 +1,7 @@
-import strutils
+import strutils, sequtils
 
-proc getChanges(src: string): seq[int] =
-    result = @[]
-    for ln in src.lines:
-        result.add(parseInt(ln))
-
-var changes: seq[int] = getChanges("input.txt")
+var changes: seq[int] = toSeq(lines("input.txt"))
+    .map(proc(s: TaintedString): int = parseInt(s))
 
 proc decode(changes: seq[int]): (int, int) =
     var
@@ -17,7 +13,6 @@ proc decode(changes: seq[int]): (int, int) =
             res += ch
             if res in freqs:
                 rep = res
-                break
             freqs.add(res)
             
     return (res, rep)
