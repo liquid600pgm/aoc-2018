@@ -1,20 +1,18 @@
 import strutils, sequtils
 
 var changes: seq[int] = toSeq(lines("input.txt"))
-    .map(proc(s: string): int = parseInt(s))
+    .map do (s: string) -> int: parseInt(s)
 
-proc decode(changes: seq[int]): (int, int) =
-    var
-        res, rep: int
-        freqs: seq[int] = @[]
+var
+    res, rep: int
+    freqs: seq[int] = @[]
 
-    while rep == 0:
-        for ch in changes:
-            res += ch
-            if res in freqs:
-                rep = res
-            freqs.add(res)
-            
-    return (res, rep)
+while rep == 0:
+    for ch in changes:
+        res += ch
+        if res in freqs:
+            rep = res
+            break
+        freqs.add(res)
 
-echo decode(changes)
+echo rep
