@@ -1,7 +1,7 @@
 import strutils, sequtils
 
 var changes: seq[int] = toSeq(lines("input.txt"))
-    .map(proc(s: TaintedString): int = parseInt(s))
+    .map(proc(s: string): int = parseInt(s))
 
 proc decode(changes: seq[int]): (int, int) =
     var
@@ -18,4 +18,3 @@ proc decode(changes: seq[int]): (int, int) =
     return (res, rep)
 
 echo decode(changes)
- 
